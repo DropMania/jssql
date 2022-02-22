@@ -1,5 +1,5 @@
 function JsSql(data, query) {
-    let keyWords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'ORDER BY', 'ASC', 'DESC', 'LIMIT', 'OFFSET'];
+    let keyWords = ['SELECT ', ' FROM ', ' WHERE ', ' AND ', ' OR ', ' ORDER BY ', ' ASC ', ' DESC ', ' LIMIT ', ' OFFSET '];
     query = query;
     let keywordArray = query.toUpperCase().match(new RegExp(keyWords.join('|'), 'g'));
     let dataArray = query.split(new RegExp(`${keyWords.join('|')}`, 'g'));
@@ -8,6 +8,7 @@ function JsSql(data, query) {
         select: '', from: '', where: [], orderBy: ['','ASC'], limit: '', offset: '',
     }
     keywordArray.forEach((keyword, i) => {
+        keyword = keyword.trim();
         if(keyword === 'SELECT'){
             parsedSql.select = dataArray[i].trim()
         }
@@ -90,16 +91,6 @@ function JsSql(data, query) {
         });
         return isValid;
     })
-    if(parsedSql.orderBy[0]){
-        result.sort((a,b) => {
-            if(parsedSql.orderBy[1] === 'ASC'){
-                return a[parsedSql.orderBy[0]] - b[parsedSql.orderBy[0]]
-            }
-            if(parsedSql.orderBy[1] === 'DESC'){
-                return b[parsedSql.orderBy[0]] - a[parsedSql.orderBy[0]]
-            }
-        })
-    }
     result = result.reduce((acc, item) => {
         let newItem = {};
         fields.forEach(field => {
@@ -113,6 +104,16 @@ function JsSql(data, query) {
         acc.push(newItem);
         return acc;
     }, []);
+    if(parsedSql.orderBy[0]){
+        result.sort((a,b) => {
+            if(parsedSql.orderBy[1] === 'ASC'){
+                return a[parsedSql.orderBy[0]] > b[parsedSql.orderBy[0]] ? 1 : -1
+            }
+            if(parsedSql.orderBy[1] === 'DESC'){
+                return b[parsedSql.orderBy[0]] > a[parsedSql.orderBy[0]] ? 1 : -1
+            }
+        })
+    }
     if(parsedSql.offset){
         result = result.slice(parsedSql.offset);
     }
