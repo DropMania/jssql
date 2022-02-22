@@ -35,10 +35,38 @@ log:
 3: {bla: 'curly', bla2: 'Ok 50', bla3: 2}
 4: {bla: 'larry', bla2: 'Ok 60', bla3: 3}
 */
+
+
+//or as a static function without instantiating
+const result2 = JsSql.run({users},`
+    SELECT 
+        name AS bla,
+        'Ok ' || age AS bla2,
+        favMovie AS bla3
+    FROM users 
+    WHERE 
+        age > 40
+    ORDER BY bla3 
+`);
 ```
 
-# Todo
+## Usable Keywords:
+*   SELECT
+*   FROM
+*   WHERE
+*   AND
+*   OR
+*   ORDER BY
+*   ASC
+*   DESC
+*   LIMIT
+*   OFFSET
 
-*   query multiple tables (JOIN and maybe subquerys?)
-*   error handling
-*   stability
+## Todo
+
+* [ ]   query multiple tables (JOIN and maybe subquerys?)
+* [ ]   error handling
+* [ ]   stability
+* [ ]   AND and OR in WHERE part currently only works as AND
+* [ ]   case insensitivity
+* [ ]   LIKE filter with placeholders (currently just checks if the value contains)
