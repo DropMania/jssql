@@ -39,14 +39,7 @@ log:
 
 //or as a static function without instantiating
 const result2 = JsSql.run({users},`
-    SELECT 
-        name AS bla,
-        'Ok ' || age AS bla2,
-        favMovie AS bla3
-    FROM users 
-    WHERE 
-        age > 40
-    ORDER BY bla3 
+    SELECT * FROM users
 `);
 ```
 
