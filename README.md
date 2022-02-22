@@ -54,6 +54,7 @@ const result2 = JsSql.run({users},`
 *   DESC
 *   LIMIT
 *   OFFSET
+*   UNION
 
 ## Todo
 
