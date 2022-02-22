@@ -1,5 +1,4 @@
 
-
 const users = [
     { id: 1, name: 'moe', age: 40, favMovie: 1 },
     { id: 2, name: 'curly', age: 50, favMovie: 2 },
@@ -9,24 +8,38 @@ const users = [
     { id: 6, name: 'harpo', age: 64, favMovie: 1 },
     { id: 7, name: 'shep Jr.', age: 5, favMovie: 1 },
 ]
+const db = new JsSql({users})
 
-console.log(JsSql({users}, `
+console.log(db.run(/*sql*/`
     SELECT 
-        *
+        name AS bla,
+        'Ok ' || age AS bla2,
+        favMovie AS bla3
     FROM users 
     WHERE 
         age > 40
-    ORDER BY age ASC
+    ORDER BY bla3 
 `));
+//compared to reduce
+console.log(users.reduce((acc,item) => {
+    if(item.age > 40){
+        acc.push({
+            bla: item.name,
+            bla2: `Ok ${item.age}`,
+            bla3: item.favMovie  
+        })
+    }
+    return acc
+},[]).sort((a,b) => {
+    return a.bla3 > b.bla3 ? 1 : -1
+}))
+
 function runStatement(){
     let statement = document.querySelector('textarea').value
-    let table = JsSql({users},statement)
+    let table = db.run(statement)
     drawTable(table,'#result-table')
 }
 drawTable(users,'#source-table')
-
-
-
 
 
 function drawTable(data,selector){
@@ -40,20 +53,11 @@ function drawTable(data,selector){
     let output = `
     <h1>users</h1>
     <table border='1'>
-    <tr>
-        ${cols.map(c=>`<th>${c}</th>
-        `).join('')}
-    </tr>
+    <tr>${cols.map(c=>`<th>${c}</th>`).join('\n')}</tr>
     ${data.map(row=>{
         let values = Object.values(row)
-        return `
-        <tr>
-            ${values.map(v=>`<td>${v}</td>
-            `).join('')}
-        </tr>
-        `
-    }).join('')}
-    </table>
-    `
+        return `<tr>${values.map(v=>`<td>${v}</td>`).join('\n')}</tr>`}).join('\n')
+    }
+    </table>`
     el.innerHTML = output
 }
