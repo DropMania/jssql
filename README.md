@@ -39,6 +39,6 @@ log:
 
 # Todo
 
-*   Query multiple tables (JOIN and maybe subquerys?)
-*   Errorhandling
+*   query multiple tables (JOIN and maybe subquerys?)
+*   error handling
 *   stability
