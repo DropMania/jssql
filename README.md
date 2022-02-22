@@ -2,7 +2,7 @@
 ### A simple SQL Compiler for JavaScript collections (Array of Objects)
 
 ## e.g.
-```javascript
+```dart
 const users = [
     { id: 1, name: 'moe', age: 40, favMovie: 1 },
     { id: 2, name: 'curly', age: 50, favMovie: 2 },
