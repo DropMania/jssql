@@ -1,4 +1,15 @@
 class JsSql {
+    static #getData(row, field){
+        let q = field.split('.')
+        for(let i = 0; i < q.length; i++){
+            if(row[q[i]]){
+                row = row[q[i]]
+            } else {
+                return null
+            }
+        }
+        return row
+    }
     static run(db, query) {
         let keyWords = [
             'SELECT ',
@@ -82,37 +93,37 @@ class JsSql {
                     let operator = whereItem.operator;
                     let value = whereItem.value.replace(/'|"/g, '');
                     if (operator === '=') {
-                        if (item[field] != value) {
+                        if (JsSql.#getData(item, field) != value) {
                             isValid = false;
                         }
                     }
                     if (operator === '!=') {
-                        if (item[field] == value) {
+                        if (JsSql.#getData(item, field) == value) {
                             isValid = false;
                         }
                     }
                     if (operator === '>') {
-                        if (item[field] <= value) {
+                        if (JsSql.#getData(item, field) <= value) {
                             isValid = false;
                         }
                     }
                     if (operator === '<') {
-                        if (item[field] >= value) {
+                        if (JsSql.#getData(item, field) >= value) {
                             isValid = false;
                         }
                     }
                     if (operator === '>=') {
-                        if (item[field] < value) {
+                        if (JsSql.#getData(item, field) < value) {
                             isValid = false;
                         }
                     }
                     if (operator === '<=') {
-                        if (item[field] > value) {
+                        if (JsSql.#getData(item, field) > value) {
                             isValid = false;
                         }
                     }
                     if (operator === 'LIKE') {
-                        if (!item[field].includes(value)) {
+                        if (!JsSql.#getData(item, field).includes(value)) {
                             isValid = false;
                         }
                     }
@@ -130,14 +141,14 @@ class JsSql {
                             if (val.match(/'|"/)) {
                                 return acc + val.replace(/'|"/g, '');
                             } else {
-                                return acc + item[val] || '';
+                                return acc + JsSql.#getData(item, val) || '';
                             }
                         }, '');
                     } else {
                         if (concat[0].match(/'|"/)) {
                             newItem[as] = concat[0].replace(/'|"/g, '');
                         } else {
-                            newItem[as] = item[concat[0]] || '';
+                            newItem[as] = JsSql.#getData(item,concat[0]) || '';
                         }
                     }
                 });
