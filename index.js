@@ -1,7 +1,7 @@
 const users = [
     { id: 1, name: 'moe', age: 40, favMovie: 1 },
     { id: 2, name: 'curly', age: 50, favMovie: 2 },
-    { id: 3, name: 'larry', age: 60, favMovie: 3, a: {c:3} },
+    { id: 3, name: 'larry', age: 60, favMovie: 3 },
     { id: 4, name: 'shep', age: 57, favMovie: 1 },
     { id: 5, name: 'groucho', age: 45, favMovie: 2 },
     { id: 6, name: 'harpo', age: 64, favMovie: 1 },

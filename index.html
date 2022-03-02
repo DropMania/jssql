@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSsql</title>
     <script src="jssql.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
 </head>
-<body>
-    <div id="source-table"></div>
+<body class="container">
+    <div class="grid">
+        <div id="source-table"></div>
+        <div id="result-table"></div>
+    </div>
     <textarea id="sql-input" rows="5" cols="60"></textarea>
     <button onclick="runStatement()">run</button>
-    <div id="result-table"></div>
 </body>
 <script src="index.js"></script>
 <script src="compare.js"></script>
