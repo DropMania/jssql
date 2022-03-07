@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSsql</title>
     <script src="jssql.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 17px;
+        }
+    </style>
 </head>
-<body class="container">
-    <div class="grid">
-        <div id="source-table"></div>
-        <div id="result-table"></div>
-    </div>
-    <textarea id="sql-input" rows="5" cols="60"></textarea>
+<body>
+    <div id="source-table"></div>
+    <textarea spellcheck="false" id="sql-input" rows="5" cols="130" style="font-family: 'Courier New', Courier, monospace; font-size: large;">SELECT name, age, address.near_schools AS schools FROM users WHERE address.near_schools CONTAINS 'school 46' AND age > 50</textarea>
     <button onclick="runStatement()">run</button>
+    <div id="result-table"></div>
 </body>
 <script src="index.js"></script>
 <script src="compare.js"></script>

@@ -81,8 +81,8 @@ class JsSql {
                 );
             }
             let where = parsedSql.where.map((whereItem) => {
-                let [field, operator, value] = whereItem.split(/\s+/);
-                return { field, operator, value };
+                let [field, operator, ...value] = whereItem.split(/\s+/);
+                return { field, operator, value: value.join(' ') };
             });
             let result = [];
 
@@ -124,6 +124,26 @@ class JsSql {
                     }
                     if (operator === 'LIKE') {
                         if (!JsSql.#getData(item, field).includes(value)) {
+                            isValid = false;
+                        }
+                    }
+                    if(operator === 'IN'){
+                        if(!value.split(',').includes(JsSql.#getData(item, field))){
+                            isValid = false;
+                        }
+                    }
+                    if(operator === 'NOT IN'){
+                        if(value.split(',').includes(JsSql.#getData(item, field))){
+                            isValid = false;
+                        }
+                    }
+                    if(operator === 'CONTAINS'){
+                        if(!JsSql.#getData(item, field).includes(value)){
+                            isValid = false;
+                        }
+                    }
+                    if(operator === 'NOT CONTAINS'){
+                        if(JsSql.#getData(item, field).includes(value)){
                             isValid = false;
                         }
                     }
