@@ -201,7 +201,16 @@ class JsSql {
     run(query) {
         return JsSql.run(this.data, query);
     }
-    constructor(db) {
+    constructor(db = {}) {
         this.data = db;
+    }
+    add(tableName, data) {
+        if(typeof tableName === 'string'){
+            this.data[tableName] = data;
+        }else if(typeof tableName === 'object'){
+            Object.keys(tableName).forEach((key)=>{
+                this.data[key] = tableName[key];
+            });
+        }
     }
 }
