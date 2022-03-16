@@ -43,11 +43,20 @@
         button:active {
             background-color: #444;
         }
+        table{
+            font-size: 10pt;
+        }
     </style>
 </head>
 <body>
     <div id="source-table"></div>
-    <textarea spellcheck="false" id="sql-input" rows="5" cols="130" style="font-family: 'Courier New', Courier, monospace; font-size: large;"></textarea>
+    <textarea 
+        spellcheck="false" 
+        id="sql-input" 
+        rows="5" 
+        cols="130" 
+        style="font-family: 'Courier New', Courier, monospace; font-size: large;"
+        onkeyup="keyPress(event)"></textarea>
     <button onclick="runStatement()">run</button>
     <div id="result-table"></div>
 </body>
