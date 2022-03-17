@@ -209,6 +209,8 @@ class JsSql {
                     });
                     return isValid;
                 });
+                result.forEach((r,i)=>{r.rownum = i+1});
+                console.log(result);
                 result = result.reduce((acc, item) => {
                     let newItem = {};
                     fields.forEach((field) => {
