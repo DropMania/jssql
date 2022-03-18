@@ -64,3 +64,4 @@ const result2 = JsSql.run({users},`
 * [ ]   AND and OR in WHERE part currently only works as AND
 * [ ]   case insensitivity
 * [ ]   LIKE filter with placeholders (currently just checks if the value contains)
+* [ ]   use https://www.npmjs.com/package/node-sql-parser
